@@ -84,7 +84,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
                 <configuration>
-                    <argLine>-Xss10M -Djava.library.path=${basedir}/src/main/resources/</argLine>
+                    <forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <argLine>-Xmx1024M -XX:MaxPermSize=256m -Xss10M -Djava.library.path=${basedir}/src/main/resources/</argLine>
+                    <!-- <useSystemClassLoader>false</useSystemClassLoader> -->
                 </configuration>
             </plugin>
             <plugin>
@@ -184,6 +187,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <classifier>with_dependencies</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>
